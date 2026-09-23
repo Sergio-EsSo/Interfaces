@@ -8,7 +8,7 @@ describe('formatear fecha', () => {
     expect(resultado).toBe('21/09/2026 14:33')
   })
 })
-describe('Calcular peso', ()=>{
+describe('Calcular peso', () => {
   if('Calcular el peso a partir de unos minutos dados', ()=>{
     let peso = CalcularPeso(5)
     expect(peso).toBe('Baja')
