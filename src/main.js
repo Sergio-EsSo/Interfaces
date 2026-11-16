@@ -50,4 +50,4 @@ function guardarPlan(e) {
     shapes: [emote],
     scalar,
   })
-}
+} 
