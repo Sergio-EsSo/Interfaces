@@ -1,4 +1,5 @@
-import { formatearFecha } from './utils'
+import confetti from 'canvas-confetti'
+import { formatearFecha, calcularPeso } from './utils'
 import './style.css'
 import.meta.env.VITE_VERSION
 
@@ -14,20 +15,29 @@ boton.addEventListener('click', guardarPlan)
 
 function guardarPlan(e) {
   e.preventDefault()
-  const pi = 3.14
+
+  const texto = input.value.trim()
+  const minutos = Number(inputMin.value)
+
+  // Sin texto o con minutos fuera de rango (1-300): no se añade ni hay confeti
+  if (!texto) {
+    input.focus()
+    return
+  }
+  if (!Number.isFinite(minutos) || minutos < 1 || minutos > 300) {
+    inputMin.focus()
+    return
+  }
+
   const fechaHoy = formatearFecha(new Date())
-  const minutos = inputMin.value
-  let peso
-  if (minutos < 10) peso = 'Baja'
-  else if (minutos < 30) peso = 'Media'
-  else peso = 'Alta'
+  const peso = calcularPeso(minutos)
 
   const li = document.createElement('li')
-
-  li.textContent =
-    input.value + ' - ' + fechaHoy + ' ' + minutos + ' (' + peso + ')'
+  li.textContent = texto + ' - ' + fechaHoy + ' ' + minutos + ' (' + peso + ')'
   lista.appendChild(li)
+
   input.value = ''
+  input.focus()
 
   confetti({
     particleCount: 50,
